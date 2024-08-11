@@ -92,33 +92,45 @@
       const unitValue = unitSelect.value;
 
       let result;
-      if (unitValue === 'Celsius') {
-        result = convertCelsiusToFahrenheit(tempValue);
-      } else if (unitValue === 'Fahrenheit') {
-        result = convertFahrenheitToCelsius(tempValue);
-      } else if (unitValue === 'Kelvin') {
-        result = convertKelvinToCelsius(tempValue);
+      switch(unitValue) {
+        case 'Celsius':
+          result = `${convertCelsiusToFahrenheit(tempValue)} °F | ${convertCelsiusToKelvin(tempValue)} K`;
+          break;
+        case 'Fahrenheit':
+          result = `${convertFahrenheitToCelsius(tempValue)} °C | ${convertFahrenheitToKelvin(tempValue)} K`;
+          break;
+        case 'Kelvin':
+          result = `${convertKelvinToCelsius(tempValue)} °C | ${convertKelvinToFahrenheit(tempValue)} °F`;
+          break;
+        default:
+          result = "Please select a valid unit.";
       }
 
-      resultDiv.innerText = `The converted temperature is ${result} ${getUnit(unitValue)}`;
+      resultDiv.innerText = `The converted temperature is: ${result}`;
     });
 
     function convertCelsiusToFahrenheit(celsius) {
       return (celsius * 9/5) + 32;
     }
 
+    function convertCelsiusToKelvin(celsius) {
+      return celsius + 273.15;
+    }
+
     function convertFahrenheitToCelsius(fahrenheit) {
       return (fahrenheit - 32) * 5/9;
+    }
+
+    function convertFahrenheitToKelvin(fahrenheit) {
+      return (fahrenheit - 32) * 5/9 + 273.15;
     }
 
     function convertKelvinToCelsius(kelvin) {
       return kelvin - 273.15;
     }
 
-    function getUnit(unit) {
-      if (unit === 'Celsius') return '°C';
-      else if (unit === 'Fahrenheit') return '°F';
-      else if (unit === 'Kelvin') return 'K';
+    function convertKelvinToFahrenheit(kelvin) {
+      return (kelvin - 273.15) * 9/5 + 32;
     }
   </script>
 </body>
